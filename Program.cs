@@ -16,7 +16,7 @@ namespace MagicInventory
             {
                 MainMenu main = new MainMenu();
                 //main.PrintMenu();
-                int input = main.GetInput();
+                int input = main.RunScreen();
 
                 switch (input)
                 {
