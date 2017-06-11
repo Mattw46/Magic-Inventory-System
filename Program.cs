@@ -22,12 +22,15 @@ namespace MagicInventory
                 {
                     case 1:
                         // call something
+                        Console.WriteLine("Calling Owner menu");
                         break;
                     case 2:
                         // call something
+                        Console.WriteLine("Calling Franchise menu");
                         break;
                     case 3:
                         // call something
+                        Console.WriteLine("Calling Customer menu");
                         break;
                     case 4:
                         running = false;
