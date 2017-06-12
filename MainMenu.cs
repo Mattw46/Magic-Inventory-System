@@ -10,7 +10,12 @@ public class MainMenu : Screen
         maxItems = 4;
     }
 
-    public int GetMenuItem()
+    public override int GetMenuItem()
+    {
+        return GetMenuInput(maxItems);
+    }
+
+    /*public int GetMenuItem()
     {
         bool valid = false;
         int input = 0;
@@ -40,9 +45,9 @@ public class MainMenu : Screen
         }
 
         return input;
-    }
+    }*/
 
-    private void PrintMenu() // consider calling abstract method of create interface
+    protected override void PrintMenu() // consider calling abstract method of create interface
     {
         Console.WriteLine("Welcome to Marvellous Magic");
         Console.WriteLine("======================================\n");
@@ -53,7 +58,7 @@ public class MainMenu : Screen
         Console.WriteLine("Enter an option:");
     }
 
-    private int GetMenuInput()
+    /*private int GetMenuInput()
     {
         int number = 0;
 
@@ -67,5 +72,5 @@ public class MainMenu : Screen
             return InvalidInputFormat;
         }
         return number;
-    }
+    }*/
 }
