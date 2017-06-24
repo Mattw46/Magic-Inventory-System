@@ -1,21 +1,15 @@
 ﻿using System;
 
-public class MainMenu : Screen
+public class NewMainMenu
 {
-    //const int InvalidInputFormat = -1;
-    int maxItems;
+    const int InvalidInputFormat = -1;
+    const int maxItems = 4;
 
-    public MainMenu()
-    {
-        maxItems = 4;
-    }
+	public NewMainMenu()
+	{
+	}
 
-    public override int GetMenuItem()
-    {
-        return GetMenuInput(maxItems);
-    }
-
-    /*public int GetMenuItem()
+    public int GetMenuItem()
     {
         bool valid = false;
         int input = 0;
@@ -30,36 +24,37 @@ public class MainMenu : Screen
             // get valid input
             input = GetMenuInput();
 
-            if (input >= 1 && input <= maxItems) 
+            if (input >= 1 && input <= maxItems) //4 is max number
             {
                 valid = true;
             }
             else if (input == InvalidInputFormat)
             {
-                errorString = "\nInvalid input, only numbers allowed\nEnter an option:";
+                errorString = "Invalid input, only numbers allowed";
             }
             else
             {
+                //Console.Clear();
                 errorString = "Invalid numuber try again";
+                //Console.WriteLine("Invalid numuber try again \n\n");
             }
         }
 
         return input;
-    }*/
+    }
 
-    protected override void PrintMenu() // consider calling abstract method of create interface
+    private void PrintMenu() // consider calling abstract method of create interface
     {
-        Console.Clear();
         Console.WriteLine("Welcome to Marvellous Magic");
         Console.WriteLine("======================================\n");
         Console.WriteLine("      1.    Owner\n");
         Console.WriteLine("      2.    Franchise Owner\n");
         Console.WriteLine("      3.    Customer\n");
-        Console.WriteLine("      4.    Quit\n\n");
+        Console.WriteLine("      4.    Quit\n");
         Console.WriteLine("Enter an option:");
     }
 
-    /*private int GetMenuInput()
+    private int GetMenuInput()
     {
         int number = 0;
 
@@ -73,5 +68,5 @@ public class MainMenu : Screen
             return InvalidInputFormat;
         }
         return number;
-    }*/
+    }
 }
