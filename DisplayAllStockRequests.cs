@@ -14,7 +14,6 @@ public class DisplayAllStockRequests
     public void ProcessRequests()
     {
         bool done = false;
-        string header = $"{"ID",-5}{"Store",-15}{"Product",-20}{"Quantity",-25}{"Current Stock",-25}{"Stock Availability",-15}";
 
         if (sr == null)
         {
@@ -23,21 +22,49 @@ public class DisplayAllStockRequests
         }
 
         while (!done)
-        { 
-            Console.Clear();
-            Console.WriteLine("Stock Requests\n\n");
-            Console.WriteLine(header);
-            Console.WriteLine(new string('=', header.Length));
-            foreach(var item in sr)
+        {
+            PrintHeader();
+            foreach (var item in sr)
             {
                 string itemLine = $"{item.Id,-5}{item.Store,-15}{item.Product,-20}{item.Quantity,-25}{item.CurrentStock,-25}{item.StockAvailability,-15}";
                 Console.WriteLine(itemLine);
             }
 
             Console.Write("\n\nEnter Request to process: ");
-            int input = Int32.Parse(Console.ReadLine());
-            if (input == 0) { done = true;  }
+            string input = Console.ReadLine();
+
+            // pressing enter (empty string) returns to previous menu
+            if (input.Equals("")) { return; } 
+            try { 
+                int option = Int32.Parse(input);
+                if (option == 0) { done = true;  }
+            }
+            catch(FormatException)
+            {
+                Console.WriteLine("Invalid input format\npress enter to continue");
+                Console.ReadLine();
+            }
+            // process item
         }
+    }
+
+    public void PrintHeader()
+    {
+        string header = $"{"ID",-5}{"Store",-15}{"Product",-20}{"Quantity",-25}{"Current Stock",-25}{"Stock Availability",-15}";
+        Console.Clear();
+        Console.WriteLine("Stock Requests\n\n");
+        Console.WriteLine(header);
+        Console.WriteLine(new string('=', header.Length));
+    }
+
+    public void PrintItems()
+    {
+
+    }
+
+    public void PrintFilterItems()
+    {
+
     }
 
     public void PrintReadError()
