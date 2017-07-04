@@ -15,6 +15,8 @@ public class DisplayAllStockRequests
     {
         bool done = false;
 
+        /* Exit if StockRequest is null, 
+        an error occured reading the file*/
         if (sr == null)
         {
             PrintReadError();
@@ -24,27 +26,34 @@ public class DisplayAllStockRequests
         while (!done)
         {
             PrintHeader();
-            foreach (var item in sr)
-            {
-                string itemLine = $"{item.Id,-5}{item.Store,-15}{item.Product,-20}{item.Quantity,-25}{item.CurrentStock,-25}{item.StockAvailability,-15}";
-                Console.WriteLine(itemLine);
-            }
+            PrintItems();
 
-            Console.Write("\n\nEnter Request to process: ");
-            string input = Console.ReadLine();
+            done = GetItem();
+        }
+    }
 
-            // pressing enter (empty string) returns to previous menu
-            if (input.Equals("")) { return; } 
-            try { 
-                int option = Int32.Parse(input);
-                if (option == 0) { done = true;  }
-            }
-            catch(FormatException)
-            {
-                Console.WriteLine("Invalid input format\npress enter to continue");
-                Console.ReadLine();
-            }
-            // process item
+    public void ProcessFilteredRequests()
+    {
+        bool filter;
+        bool done = false;
+
+        /* Exit if StockRequest is null, 
+        an error occured reading the file*/
+        if (sr == null)
+        {
+            PrintReadError();
+            return;
+        }
+
+        //Console.WriteLine("Enter filter: True or False");
+        filter = ValidateFilter();
+
+        while (!done)
+        {
+            PrintHeader();
+            PrintFilterItems(filter);
+
+            done = GetItem();
         }
     }
 
@@ -59,12 +68,48 @@ public class DisplayAllStockRequests
 
     public void PrintItems()
     {
-
+        foreach (var item in sr)
+        {
+            string itemLine = $"{item.Id,-5}{item.Store,-15}{item.Product,-20}{item.Quantity,-25}{item.CurrentStock,-25}{item.StockAvailability,-15}";
+            Console.WriteLine(itemLine);
+        }
     }
 
-    public void PrintFilterItems()
+    public void PrintFilterItems(bool filter)
     {
+        foreach (var item in sr)
+        {
+            if (item.StockAvailability == filter)
+            {
+                string itemLine = $"{item.Id,-5}{item.Store,-15}{item.Product,-20}{item.Quantity,-25}{item.CurrentStock,-25}{item.StockAvailability,-15}";
+                Console.WriteLine(itemLine);
+            }
+        }
+    }
 
+    /* Gets item input
+       Processes if valid item
+       returns true if wmpty string entered */
+    public bool GetItem()
+    {
+        Console.Write("\n\nEnter Request to process: ");
+        string input = Console.ReadLine();
+
+        // pressing enter (empty string) returns to previous menu
+        if (input.Equals("")) { return true; }
+        try
+        {
+            int option = Int32.Parse(input);
+            //if (option == 0) { done = true;  }
+
+            // process items here
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine("Invalid input format\npress enter to continue");
+            Console.ReadLine();
+        }
+        return false;
     }
 
     public void PrintReadError()
@@ -73,5 +118,50 @@ public class DisplayAllStockRequests
         Console.WriteLine("An Error occured reading the stock request file:");
         Console.WriteLine("Press any key to return to the previous menu");
         Console.ReadLine();
+    }
+
+    public bool ValidateFilter()
+    {
+        string input;
+        while (true)
+        { 
+            Console.Clear();
+            Console.WriteLine("Enter filter: True or False");
+            input = Console.ReadLine();
+ 
+            switch (input)
+            {
+                case "TRUE":
+                    return true;
+                    break;
+                case "T":
+                    return true;
+                    break;
+                case "True":
+                    return true;
+                    break;
+                case "true":
+                    return true;
+                    break;
+                case "FALSE":
+                    return false;
+                    break;
+                case "F":
+                    return false;
+                    break;
+                case "False":
+                    return false;
+                    break;
+                case "false":
+                    return false;
+                    break;
+                default:
+                    Console.WriteLine("Invalid input: please retry\nPress any key to continue");
+                    Console.ReadLine();
+                    break;
+            }
+        }
+
+        //return true;
     }
 }

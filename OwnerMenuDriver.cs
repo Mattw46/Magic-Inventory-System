@@ -21,12 +21,12 @@ public class OwnerMenuDriver
             switch (input)
             {
                 case 1:
-                    DisplayAllStockRequests sr = new DisplayAllStockRequests();
-                    sr.ProcessRequests();
+                    DisplayAllStockRequests stockRequests = new DisplayAllStockRequests();
+                    stockRequests.ProcessRequests();
                     break;
                 case 2:
-                    DisplayStockRequests dsr = new DisplayStockRequests();
-                    dsr.ProcessRequests();
+                    DisplayAllStockRequests filteredStockRequests = new DisplayAllStockRequests();
+                    filteredStockRequests.ProcessFilteredRequests();
                     break;
                 case 3:
                     DisplayProductLines dpl = new DisplayProductLines();
